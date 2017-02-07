@@ -7,7 +7,7 @@ LABEL com.redhat.component=osbs-fedora-buildroot
 
 RUN dnf -y update && \
     dnf -y install \
-         git \
+        git \
         koji \
         nfs-utils \
         python-docker-py \
@@ -20,9 +20,11 @@ RUN dnf -y update && \
 
 RUN \
     cd /opt/ && git clone -b master https://github.com/projectatomic/osbs-client.git && cd osbs-client && python setup.py install && \
+       mkdir -p /usr/share/osbs && cp -r inputs /usr/share/osbs && \
     cd /opt/ && git clone -b master https://github.com/projectatomic/atomic-reactor.git && cd atomic-reactor && python setup.py install && \
     cd /opt/ && git clone -b master https://github.com/release-engineering/dockpulp.git && cd dockpulp && python setup.py install && \
     cd /opt/ && git clone -b master https://github.com/goldmann/docker-squash.git && cd docker-squash && python setup.py install
+ADD osbs.conf /etc/osbs.conf
 
 CMD ["atomic-reactor", "--verbose", "inside-build", "--input", "osv3"]
 
