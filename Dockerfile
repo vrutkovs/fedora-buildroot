@@ -14,6 +14,7 @@ RUN dnf -y update && \
         python-pip \
         python-setuptools \
         python-simplejson \
+        python-backports-lzma \
         golang-github-cpuguy83-go-md2man && \
     dnf clean all
 
