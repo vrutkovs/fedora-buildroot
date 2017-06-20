@@ -33,7 +33,7 @@ RUN pip install git+https://github.com/vrutkovs/osbs-client.git@$OSBS_CLIENT_COM
     git clone https://github.com/vrutkovs/osbs-client.git && \
     cd osbs-client && \
     git checkout $OSBS_CLIENT_COMMIT && \
-    cp inputs/* /usr/share/osbs/inputs
+    cp inputs/* /usr/share/osbs
 RUN pip install git+https://github.com/vrutkovs/atomic-reactor.git@$ATOMIC_REACTOR_COMMIT
 
 CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
