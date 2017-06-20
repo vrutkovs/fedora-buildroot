@@ -5,7 +5,7 @@ LABEL version=1.0
 LABEL release=1
 LABEL com.redhat.component=osbs-fedora-buildroot
 
-RUN dnf -y update && \
+RUN dnf -y update --refresh && \
     dnf -y install \
         atomic-reactor \
         git \
