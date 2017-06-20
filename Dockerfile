@@ -1,4 +1,4 @@
-FROM fedora:25
+FROM fedora:26
 
 LABEL name=vrutkovs/buildroot
 LABEL version=1.0
@@ -20,8 +20,13 @@ RUN dnf -y update && \
         python-pip \
         python-setuptools \
         python-simplejson \
-        golang-github-cpuguy83-go-md2man && \
+        golang-github-cpuguy83-go-md2man \
+        buildah \
+        skopeo && \
     dnf clean all
 
-CMD ["atomic-reactor", "--verbose", "inside-build", "--input", "osv3"]
+RUN pip install git+https://github.com/vrutkovs/osbs-client.git@buildah-plugin && \
+    cp inputs/* /usr/share/osbs/inputs
+RUN pip install git+https://github.com/vrutkovs/atomic-reactor.git@buildah-plugin
 
+CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
