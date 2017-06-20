@@ -26,14 +26,15 @@ RUN dnf clean all && \
         skopeo && \
     dnf clean all
 
-ENV OSBS_CLIENT_COMMIT 8dfdf69
-ENV ATOMIC_REACTOR_COMMIT f61c711
+ENV OSBS_CLIENT_COMMIT da2ad0a
 
 RUN pip install git+https://github.com/vrutkovs/osbs-client.git@$OSBS_CLIENT_COMMIT && \
     git clone https://github.com/vrutkovs/osbs-client.git && \
     cd osbs-client && \
     git checkout $OSBS_CLIENT_COMMIT && \
     cp inputs/* /usr/share/osbs
+
+ENV ATOMIC_REACTOR_COMMIT 0c0cc29
 RUN pip install git+https://github.com/vrutkovs/atomic-reactor.git@$ATOMIC_REACTOR_COMMIT
 
 CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
