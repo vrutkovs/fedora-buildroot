@@ -5,12 +5,17 @@ LABEL version=1.0
 LABEL release=1
 LABEL com.redhat.component=osbs-fedora-buildroot
 
-RUN dnf -y update && \
+ARG UPDATES_TESTING
+
+RUN dnf update -y && dnf install -y dnf-plugins-core && \
+    if [ $UPDATES_TESTING ]; then dnf config-manager --set-enable updates-testing; fi && \
+    dnf -y update && \
     dnf -y install \
         atomic-reactor \
         git \
         koji \
         nfs-utils \
+        fedpkg \
         python-atomic-reactor-koji \
         python-atomic-reactor-metadata \
         python-atomic-reactor-rebuilds \
@@ -23,5 +28,4 @@ RUN dnf -y update && \
         golang-github-cpuguy83-go-md2man && \
     dnf clean all
 
-CMD ["atomic-reactor", "--verbose", "inside-build", "--input", "osv3"]
-
+CMD ["atomic-reactor-2", "--verbose", "inside-build", "--input", "osv3"]
