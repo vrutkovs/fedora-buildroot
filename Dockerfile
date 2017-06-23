@@ -22,19 +22,17 @@ RUN dnf clean all && \
         python-setuptools \
         python-simplejson \
         golang-github-cpuguy83-go-md2man \
+        fedpkg \
         buildah \
         skopeo && \
     dnf clean all
 
-ENV OSBS_CLIENT_COMMIT da2ad0a
+ENV OSBS_CLIENT_REMOTE https://github.com/vrutkovs/osbs-client.git
+ENV OSBS_CLIENT_COMMIT fabd94f
+RUN pip install --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
 
-RUN pip install git+https://github.com/vrutkovs/osbs-client.git@$OSBS_CLIENT_COMMIT && \
-    git clone https://github.com/vrutkovs/osbs-client.git && \
-    cd osbs-client && \
-    git checkout $OSBS_CLIENT_COMMIT && \
-    cp inputs/* /usr/share/osbs
-
-ENV ATOMIC_REACTOR_COMMIT 0c0cc29
-RUN pip install git+https://github.com/vrutkovs/atomic-reactor.git@$ATOMIC_REACTOR_COMMIT
+ENV ATOMIC_REACTOR_REMOTE https://github.com/vrutkovs/atomic-reactor.git
+ENV ATOMIC_REACTOR_COMMIT d3b6ec5
+RUN pip install --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
 
 CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
