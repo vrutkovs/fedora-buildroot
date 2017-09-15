@@ -25,7 +25,10 @@ RUN dnf update -y && dnf install -y dnf-plugins-core && \
         python-pip \
         python-setuptools \
         python-simplejson \
-        golang-github-cpuguy83-go-md2man && \
+        golang-github-cpuguy83-go-md2man \
+        desktop-file-utils \
+        flatpak \
+        ostree && \
     dnf clean all
 
 CMD ["atomic-reactor-2", "--verbose", "inside-build", "--input", "osv3"]
