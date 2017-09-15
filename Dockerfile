@@ -31,4 +31,13 @@ RUN dnf update -y && dnf install -y dnf-plugins-core && \
         ostree && \
     dnf clean all
 
+ENV OSBS_CLIENT_REMOTE https://github.com/projectatomic/osbs-client.git
+ENV OSBS_CLIENT_COMMIT master
+RUN pip install --upgrade --no-deps --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
+
+ENV ATOMIC_REACTOR_REMOTE https://github.com/projectatomic/atomic-reactor.git
+ENV ATOMIC_REACTOR_COMMIT master
+RUN pip install --upgrade --no-deps --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
+
+
 CMD ["atomic-reactor-2", "--verbose", "inside-build", "--input", "osv3"]
