@@ -28,11 +28,11 @@ RUN dnf clean all && \
     dnf clean all
 
 ENV OSBS_CLIENT_REMOTE https://github.com/vrutkovs/osbs-client.git
-ENV OSBS_CLIENT_COMMIT fabd94f
-RUN pip install --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
+ENV OSBS_CLIENT_COMMIT b1e9451688f5413a8e5a38b6248935aaa9944c2c
+RUN pip install -U --no-deps --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
 
 ENV ATOMIC_REACTOR_REMOTE https://github.com/vrutkovs/atomic-reactor.git
-ENV ATOMIC_REACTOR_COMMIT d3b6ec5
-RUN pip install --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
+ENV ATOMIC_REACTOR_COMMIT ab226ea647a3aacf97249d3bcd719c84ccbfad13
+RUN pip install -U --no-deps --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
 
 CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
