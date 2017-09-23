@@ -22,17 +22,22 @@ RUN dnf clean all && \
         python-setuptools \
         python-simplejson \
         golang-github-cpuguy83-go-md2man \
+        PyYAML \
+        python2-pdc-client \
+        python2-modulemd \
         fedpkg \
         buildah \
         skopeo && \
     dnf clean all
 
 ENV OSBS_CLIENT_REMOTE https://github.com/vrutkovs/osbs-client.git
-ENV OSBS_CLIENT_COMMIT b1e9451688f5413a8e5a38b6248935aaa9944c2c
+ENV OSBS_CLIENT_COMMIT e9564e8334a2e249b0260632633ffdc423daaadf
 RUN pip install -U --no-deps --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
 
 ENV ATOMIC_REACTOR_REMOTE https://github.com/vrutkovs/atomic-reactor.git
-ENV ATOMIC_REACTOR_COMMIT ab226ea647a3aacf97249d3bcd719c84ccbfad13
+ENV ATOMIC_REACTOR_COMMIT 5d1482f5d0380b3f896c3f2b9c46911db077b464
 RUN pip install -U --no-deps --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
 
-CMD ["/usr/bin/atomic-reactor", "--verbose", "inside-build"]
+ADD entrypoint.sh osbs-box-update-hosts /usr/local/bin/
+
+CMD ["entrypoint.sh"]
