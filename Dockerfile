@@ -16,7 +16,7 @@ RUN rm -rf /tmp/osbs-client && \
     install -D -t /usr/share/osbs inputs/*.json
 
 ENV ATOMIC_REACTOR_REMOTE https://github.com/vrutkovs/atomic-reactor.git
-ENV ATOMIC_REACTOR_COMMIT e8bb1c66ebd84cb3c0d90326d9b757cf14b156b0
+ENV ATOMIC_REACTOR_COMMIT 63e2cb94e5f98a72053c4668c504ae65a62797e9
 RUN pip install --upgrade --no-deps --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
 
 #CMD ["atomic-reactor", "--verbose", "inside-build", "--input", "osv3"]
