@@ -31,11 +31,11 @@ RUN dnf clean all && \
     dnf clean all
 
 ENV OSBS_CLIENT_REMOTE https://github.com/vrutkovs/osbs-client.git
-ENV OSBS_CLIENT_COMMIT e9564e8334a2e249b0260632633ffdc423daaadf
+ENV OSBS_CLIENT_COMMIT e32455a0d239b6dbadb607813e055ed161b31932
 RUN pip install -U --no-deps --force-reinstall git+$OSBS_CLIENT_REMOTE@$OSBS_CLIENT_COMMIT
 
 ENV ATOMIC_REACTOR_REMOTE https://github.com/vrutkovs/atomic-reactor.git
-ENV ATOMIC_REACTOR_COMMIT 5d1482f5d0380b3f896c3f2b9c46911db077b464
+ENV ATOMIC_REACTOR_COMMIT 17d9fa3fd2ce2b712f46bec946ff17f504c3094f
 RUN pip install -U --no-deps --force-reinstall git+$ATOMIC_REACTOR_REMOTE@$ATOMIC_REACTOR_COMMIT
 
 ADD entrypoint.sh osbs-box-update-hosts /usr/local/bin/
